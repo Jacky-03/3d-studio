@@ -327,6 +327,7 @@
         <div class="card">
           <h2>🖨️ 设备状态</h2>
           <div class="chips" id="dash-printers"></div>
+          <div id="dash-printing" style="margin-top:10px;font-size:13px"></div>
         </div>
         <div class="card">
           <h2>💰 本月收支</h2>
@@ -496,7 +497,9 @@
         <select id="p-status">
           <option>空闲</option><option>打印中</option><option>故障</option><option>维护中</option>
         </select>
-        <input id="p-task" placeholder="当前任务" style="flex:1;min-width:100px">
+        <select id="p-task" style="flex:1;min-width:140px">
+          <option value="">（无任务）</option>
+        </select>
         <input id="p-prints" type="number" min="0" placeholder="次数" style="width:70px">
         <input id="p-hours" type="number" min="0" step="0.1" placeholder="时长h" style="width:70px">
         <input id="p-note" placeholder="备注" style="width:90px">
@@ -692,6 +695,38 @@ function printerBadge(s) {
   return '<span class="badge ' + (map[s] || "muted") + '">' + esc(s) + "</span>";
 }
 
+// 订单编号 → 展示文案（编号 · 客户 · 产品）；找不到则原样显示
+function orderLabel(id) {
+  if (!id) return "—";
+  const o = state.orders.find(x => x.id === id);
+  return o ? esc(o.id) + " · " + esc(o.customer) + (o.product ? " · " + esc(o.product) : "") : esc(id);
+}
+
+// 刷新设备「当前任务」下拉选项（订单编号 + 客户 + 产品）
+function refreshTaskOptions() {
+  const sel = document.getElementById("p-task");
+  if (!sel) return;
+  const cur = sel.value;
+  const opts = ['<option value="">（无任务）</option>'];
+  const ids = new Set();
+  state.orders
+    .filter(o => o.status !== "已取消")
+    .slice().sort((a, b) => a.id.localeCompare(b.id))
+    .forEach(o => {
+      ids.add(o.id);
+      opts.push('<option value="' + esc(o.id) + '">' + esc(o.id) + " · " + esc(o.customer) +
+        (o.product ? " · " + esc(o.product) : "") + "</option>");
+    });
+  // 兼容旧版本自由文本任务：保留为可选项
+  state.printers.forEach(p => {
+    if (p.task && !ids.has(p.task)) {
+      opts.push('<option value="' + esc(p.task) + '">' + esc(p.task) + "</option>");
+    }
+  });
+  sel.innerHTML = opts.join("");
+  if (sel.options && Array.from(sel.options).some(o => o.value === cur)) sel.value = cur;
+}
+
 // 交付日期状态：返回 {text, cls, days} 或 null（无日期/已交付/已取消）
 function dueInfo(o) {
   if (!o.dueDate || o.status === "已交付" || o.status === "已取消") return null;
@@ -730,6 +765,7 @@ function renderAll() {
   renderSummary();
   renderInventory();
   renderPrinters();
+  refreshTaskOptions();
 }
 
 function renderSideStats() {
@@ -798,6 +834,14 @@ function renderDashboard() {
     '<div class="chip"><div class="label">打印中</div><div class="value">' + st["打印中"] + " 台</div></div>" +
     '<div class="chip"><div class="label">故障</div><div class="value ' + (st["故障"] ? "down" : "up") + '">' + st["故障"] + " 台</div></div>" +
     '<div class="chip"><div class="label">维护中</div><div class="value">' + st["维护中"] + " 台</div></div>";
+
+  // 正在打印的设备 → 正在制作谁的订单
+  const printing = state.printers.filter(p => p.status === "打印中");
+  document.getElementById("dash-printing").innerHTML = printing.length
+    ? printing.map(p =>
+        '<div class="remind-item"><div class="ri-left">🖨️ ' + esc(p.name) + " → " + orderLabel(p.task) + "</div></div>"
+      ).join("")
+    : '<div class="empty" style="padding:8px 0">当前没有正在打印的设备</div>';
 
   // 本月收支
   const income = list.reduce((s, o) => s + Number(o.amount || 0), 0);
@@ -1023,7 +1067,7 @@ function renderPrinters() {
       '<td><select class="btn sm" style="font-family:inherit" onchange="setPrinterStatus(' + i + ',this.value)">' +
         ["空闲","打印中","故障","维护中"].map(opt => '<option' + (opt === p.status ? " selected" : "") + ">" + opt + "</option>").join("") +
       "</select></td>" +
-      "<td>" + esc(p.task || "—") + "</td>" +
+      "<td>" + orderLabel(p.task) + "</td>" +
       '<td class="num">' + (p.prints || 0) + "</td>" +
       '<td class="num">' + (p.hours || 0) + "</td>" +
       "<td>" + esc(p.note || "—") + "</td>" +
