@@ -18,6 +18,23 @@
     --ok: #30a46c;
     --warn: #f5a524;
     --radius: 10px;
+    --th-bg: #fafbfd;
+    --hover: #f8faff;
+    --soft: #f8faff;
+    --input-bg: #ffffff;
+    --track: #eef0f4;
+  }
+  body[data-theme="dark"] {
+    --bg: #131519;
+    --card: #1d212b;
+    --line: #2b313d;
+    --text: #e8ebf2;
+    --text-2: #98a0b2;
+    --th-bg: #232936;
+    --hover: #212734;
+    --soft: #1f2531;
+    --input-bg: #262c3a;
+    --track: #262c38;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -26,6 +43,7 @@
     color: var(--text);
     font-size: 14px;
     line-height: 1.6;
+    transition: background .2s, color .2s;
   }
 
   /* ============ 左侧状态栏 ============ */
@@ -41,34 +59,18 @@
     overflow-y: auto;
   }
   #sidebar .brand {
-    font-size: 17px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 17px; font-weight: 700; color: #fff;
+    margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
   }
   #sidebar .brand .logo { width: 26px; height: 26px; border-radius: 7px; background: var(--accent); display:inline-flex; align-items:center; justify-content:center; font-size:14px; }
   #sidebar .subtitle { font-size: 12px; color: #8a93a8; margin-bottom: 18px; }
   #sidebar .nav-title { font-size: 11px; color: #6b7488; letter-spacing: 2px; margin: 10px 0 6px; }
   .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-bottom: 4px;
-    user-select: none;
-    transition: background .15s;
-    border: none;
-    background: transparent;
-    color: inherit;
-    font-size: 14px;
-    text-align: left;
-    width: 100%;
-    font-family: inherit;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 8px; cursor: pointer;
+    margin-bottom: 4px; user-select: none; transition: background .15s;
+    border: none; background: transparent; color: inherit;
+    font-size: 14px; text-align: left; width: 100%; font-family: inherit;
   }
   .nav-item:hover { background: rgba(255,255,255,.06); }
   .nav-item.active { background: var(--accent); color: #fff; }
@@ -80,34 +82,22 @@
   }
   .nav-item.active .num { background: rgba(255,255,255,.22); }
   .nav-emoji { display: none; }
-  #sidebar .side-stats {
-    margin-top: auto;
-    padding-top: 14px;
-    border-top: 1px solid rgba(255,255,255,.08);
-    font-size: 12px;
-  }
+  #sidebar .side-stats { margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.08); font-size: 12px; }
   #sidebar .side-stats .row { display: flex; justify-content: space-between; padding: 3px 0; }
   #sidebar .side-stats .row b { color: #fff; }
 
   /* ============ 主区域 ============ */
   #main { margin-left: var(--sidebar-w); padding: 20px 24px 40px; min-height: 100vh; }
   header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
   }
   header h1 { font-size: 20px; }
   header .date { color: var(--text-2); font-size: 13px; }
   .chips { display: flex; gap: 10px; flex-wrap: wrap; }
   .chip {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 8px 14px;
-    min-width: 110px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 8px 14px; min-width: 110px;
     box-shadow: 0 1px 2px rgba(0,0,0,.04);
   }
   .chip .label { font-size: 12px; color: var(--text-2); }
@@ -119,45 +109,34 @@
   .panel.active { display: block; }
 
   .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    margin-bottom: 16px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,.04);
   }
-  .card h2 { font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .card h2 { font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .card h2 .tag {
-    font-size: 11px; color: var(--accent);
-    background: rgba(79,124,255,.1);
-    padding: 2px 8px; border-radius: 20px;
-    font-weight: 400;
+    font-size: 11px; color: var(--accent); background: rgba(79,124,255,.1);
+    padding: 2px 8px; border-radius: 20px; font-weight: 400;
   }
   .card .hint { font-size: 12px; color: var(--text-2); margin: -8px 0 10px; }
 
   table { width: 100%; border-collapse: collapse; }
   th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); font-size: 13px; }
-  th { color: var(--text-2); font-weight: 600; background: #fafbfd; white-space: nowrap; }
+  th { color: var(--text-2); font-weight: 600; background: var(--th-bg); white-space: nowrap; }
   td.num, th.num { text-align: right; }
-  tr:hover td { background: #f8faff; }
+  tr:hover td { background: var(--hover); }
 
   .badge { display: inline-block; padding: 1px 8px; border-radius: 20px; font-size: 12px; }
   .badge.ok { background: #e7f6ee; color: #1e7a4e; }
   .badge.warn { background: #fdf3e1; color: #b97a0a; }
   .badge.info { background: #e8f0fe; color: #2d5fd1; }
-  .badge.muted { background: #eef0f3; color: #6b7280; }
+  .badge.muted { background: var(--track); color: var(--text-2); }
   .badge.danger { background: #fdeaea; color: #c4363a; }
 
   .btn {
-    border: 1px solid var(--line);
-    background: #fff;
-    color: var(--text);
-    border-radius: 7px;
-    padding: 5px 12px;
-    cursor: pointer;
-    font-size: 13px;
-    font-family: inherit;
-    transition: all .12s;
+    border: 1px solid var(--line); background: var(--card); color: var(--text);
+    border-radius: 7px; padding: 5px 12px; cursor: pointer;
+    font-size: 13px; font-family: inherit; transition: all .12s;
   }
   .btn:hover { border-color: var(--accent); color: var(--accent); }
   .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
@@ -171,9 +150,8 @@
 
   .money-row { display: flex; flex-wrap: wrap; gap: 10px; }
   .money-row .mc {
-    flex: 1; min-width: 120px;
-    background: #f8faff; border: 1px solid var(--line);
-    border-radius: 8px; padding: 10px 14px;
+    flex: 1; min-width: 120px; background: var(--soft);
+    border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px;
   }
   .money-row .mc .l { font-size: 12px; color: var(--text-2); }
   .money-row .mc .v { font-size: 18px; font-weight: 700; }
@@ -184,48 +162,60 @@
   /* 汇总条形图 */
   .bar-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
   .bar-row .bname { width: 110px; font-size: 13px; }
-  .bar-track { flex: 1; height: 14px; background: #eef0f4; border-radius: 8px; overflow: hidden; }
+  .bar-track { flex: 1; height: 14px; background: var(--track); border-radius: 8px; overflow: hidden; }
   .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #7ea3ff); border-radius: 8px; transition: width .4s; }
   .bar-row .bval { width: 120px; text-align: right; font-size: 13px; color: var(--text-2); }
 
-  /* 库存 */
+  /* 库存 / 设备 */
   .inv-ctrl { display: flex; gap: 6px; align-items: center; }
   .inv-ctrl .qty { min-width: 40px; text-align: center; font-weight: 700; }
-  .inline-add { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-  .inline-add input, .inline-add select {
+  .inline-add { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+  .inline-add input, .inline-add select, .field input, .field select {
     border: 1px solid var(--line); border-radius: 7px; padding: 6px 10px;
-    font-size: 13px; font-family: inherit; background: #fff;
+    font-size: 13px; font-family: inherit; background: var(--input-bg); color: var(--text);
   }
-  .inline-add input:focus, .inline-add select:focus { outline: 2px solid rgba(79,124,255,.35); border-color: var(--accent); }
+  .inline-add input:focus, .inline-add select:focus, .field input:focus, .field select:focus {
+    outline: 2px solid rgba(79,124,255,.35); border-color: var(--accent);
+  }
+  #fixed-costs label { font-size: 12px; color: var(--text-2); display: inline-flex; align-items: center; gap: 4px; }
+  #fixed-costs input { width: 80px; }
+
+  /* 仪表盘 */
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } }
+  .remind-item { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 13px; }
+  .remind-item:last-child { border-bottom: none; }
+  .remind-item .ri-left { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .quick-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+  /* 搜索筛选 */
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .filter-row input, .filter-row select {
+    border: 1px solid var(--line); border-radius: 7px; padding: 7px 10px;
+    font-size: 13px; font-family: inherit; background: var(--input-bg); color: var(--text);
+  }
+  .filter-row input { flex: 1; min-width: 180px; }
+  .filter-row input:focus, .filter-row select:focus { outline: 2px solid rgba(79,124,255,.35); border-color: var(--accent); }
+
+  /* 手机卡片（经营分析） */
+  .order-cards { display: none; }
 
   /* 弹窗 */
   #modal-mask {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(15,18,28,.45);
-    z-index: 50;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 60px 16px;
-    overflow-y: auto;
+    display: none; position: fixed; inset: 0; background: rgba(15,18,28,.45);
+    z-index: 50; align-items: flex-start; justify-content: center;
+    padding: 60px 16px; overflow-y: auto;
   }
   #modal-mask.show { display: flex; }
   #modal {
-    background: #fff; border-radius: 12px;
-    width: 100%; max-width: 560px;
-    padding: 20px 22px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    background: var(--card); border-radius: 12px; width: 100%; max-width: 560px;
+    padding: 20px 22px; box-shadow: 0 20px 60px rgba(0,0,0,.25);
   }
   #modal h3 { margin-bottom: 14px; font-size: 16px; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
   .form-grid .full { grid-column: 1 / -1; }
   .field label { display: block; font-size: 12px; color: var(--text-2); margin-bottom: 3px; }
-  .field input, .field select {
-    width: 100%;
-    border: 1px solid var(--line); border-radius: 7px;
-    padding: 7px 10px; font-size: 13px; font-family: inherit;
-  }
-  .field input:focus, .field select:focus { outline: 2px solid rgba(79,124,255,.35); border-color: var(--accent); }
+  .field input, .field select { width: 100%; }
   .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
 
   .empty { text-align: center; color: var(--text-2); padding: 30px 0; font-size: 13px; }
@@ -233,54 +223,49 @@
 
   /* ============ 手机端适配（≤768px） ============ */
   @media (max-width: 768px) {
-    /* 左侧栏 → 底部标签栏 */
     #sidebar {
-      position: fixed;
-      top: auto; left: 0; right: 0; bottom: 0;
-      width: 100%; height: auto;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
-      padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
-      overflow: visible;
-      border-top: 1px solid rgba(255,255,255,.12);
+      position: fixed; top: auto; left: 0; right: 0; bottom: 0;
+      width: 100%; height: auto; flex-direction: row;
+      align-items: center; justify-content: space-around;
+      padding: 6px 2px calc(6px + env(safe-area-inset-bottom));
+      overflow: visible; border-top: 1px solid rgba(255,255,255,.12);
+      z-index: 40;
     }
     #sidebar .brand, #sidebar .subtitle, #sidebar .nav-title, #sidebar .side-stats { display: none; }
     .nav-item {
-      flex: 1;
-      flex-direction: column;
-      gap: 2px;
-      padding: 6px 2px;
-      margin-bottom: 0;
-      font-size: 11px;
-      text-align: center;
-      border-radius: 8px;
-      min-height: 44px;
+      flex: 1; flex-direction: column; gap: 2px; padding: 6px 1px;
+      margin-bottom: 0; font-size: 10px; text-align: center;
+      border-radius: 8px; min-height: 44px;
     }
     .nav-item .num { display: none; }
-    .nav-emoji { display: inline; font-size: 16px; line-height: 1; }
-
-    /* 主区域 */
-    #main { margin-left: 0; padding: 12px 12px calc(70px + env(safe-area-inset-bottom)); }
+    .nav-emoji { display: inline; font-size: 15px; line-height: 1; }
+    #main { margin-left: 0; padding: 12px 12px calc(72px + env(safe-area-inset-bottom)); }
     header h1 { font-size: 17px; }
-    .grid-2 { grid-template-columns: 1fr; }
+    .grid-2, .dash-grid { grid-template-columns: 1fr; }
 
-    /* 表格横向滑动 */
     .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     th, td { padding: 6px 8px; font-size: 12px; white-space: nowrap; }
 
-    /* 触控优化 */
-    .chip { min-width: 86px; padding: 6px 10px; }
+    /* 经营分析：表格换卡片 */
+    #business-tbl { display: none; }
+    .order-cards { display: flex; flex-direction: column; gap: 10px; }
+    .oc {
+      background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+      padding: 10px 12px; box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .oc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .oc-line { font-size: 13px; padding: 1px 0; color: var(--text-2); }
+    .oc-line b { color: var(--text); }
+    .oc-actions { margin-top: 8px; display: flex; gap: 8px; }
+
+    .chip { min-width: 84px; padding: 6px 10px; }
     .chip .value { font-size: 15px; }
     .btn { padding: 8px 12px; }
     .btn.sm { padding: 4px 8px; }
     .money-row .mc { min-width: 100px; padding: 8px 10px; }
     .bar-row .bname { width: 84px; }
     .bar-row .bval { width: 92px; }
-    .inline-add input, .inline-add select,
-    .field input, .field select { font-size: 16px; } /* 防止 iOS 聚焦时自动放大 */
-
-    /* 弹窗单列 */
+    .inline-add input, .inline-add select, .field input, .field select { font-size: 16px; }
     .form-grid { grid-template-columns: 1fr; }
     #modal-mask { padding: 30px 10px; }
     #modal { padding: 16px; }
@@ -296,10 +281,12 @@
   <div class="subtitle">工作计划表 · 一站式管理</div>
 
   <div class="nav-title">板块</div>
-  <button class="nav-item active" data-panel="business"><span class="num">1</span><span class="nav-emoji">📊</span> 经营分析</button>
+  <button class="nav-item active" data-panel="dashboard"><span class="num">0</span><span class="nav-emoji">🏠</span> 仪表盘</button>
+  <button class="nav-item" data-panel="business"><span class="num">1</span><span class="nav-emoji">📊</span> 经营分析</button>
   <button class="nav-item" data-panel="profit"><span class="num">2</span><span class="nav-emoji">💰</span> 利润分析</button>
   <button class="nav-item" data-panel="summary"><span class="num">3</span><span class="nav-emoji">📈</span> 订单汇总</button>
   <button class="nav-item" data-panel="inventory"><span class="num">4</span><span class="nav-emoji">📦</span> 库存管理</button>
+  <button class="nav-item" data-panel="equipment"><span class="num">5</span><span class="nav-emoji">🖨️</span> 设备管理</button>
 
   <div class="side-stats" id="side-stats"></div>
 </aside>
@@ -312,6 +299,7 @@
       <div class="date" id="today"></div>
     </div>
     <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+      <button class="btn" id="theme-btn" onclick="toggleTheme()">🌙 深色</button>
       <button class="btn" onclick="openOrderModal()">＋ 新建订单</button>
       <button class="btn" onclick="exportData()">📤 导出数据</button>
       <button class="btn" onclick="document.getElementById('import-file').click()">📥 导入数据</button>
@@ -322,22 +310,71 @@
 
   <div class="chips" id="quick-chips"></div>
 
+  <!-- 0. 仪表盘 -->
+  <section class="panel active" id="panel-dashboard">
+    <div class="dash-grid">
+      <div>
+        <div class="card">
+          <h2>⚠️ 交付提醒 <span class="tag">3 天内到期 / 已逾期</span></h2>
+          <div id="dash-due"></div>
+        </div>
+        <div class="card">
+          <h2>📦 库存预警 <span class="tag">低于预警线</span></h2>
+          <div id="dash-stock"></div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2>🖨️ 设备状态</h2>
+          <div class="chips" id="dash-printers"></div>
+        </div>
+        <div class="card">
+          <h2>💰 本月收支</h2>
+          <div class="money-row" id="dash-money"></div>
+        </div>
+        <div class="card">
+          <h2>⚡ 快捷操作</h2>
+          <div class="quick-actions">
+            <button class="btn primary" onclick="openOrderModal()">＋ 新建订单</button>
+            <button class="btn" onclick="switchPanel('business')">📊 经营分析</button>
+            <button class="btn" onclick="switchPanel('inventory')">📦 库存管理</button>
+            <button class="btn" onclick="switchPanel('equipment')">🖨️ 设备管理</button>
+            <button class="btn" onclick="switchPanel('summary')">📈 订单汇总</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 1. 经营分析 -->
-  <section class="panel active" id="panel-business">
+  <section class="panel" id="panel-business">
     <div class="card">
       <h2>经营分析 <span class="tag">订单台账</span></h2>
       <p class="hint">订单编号格式：年月日 + 三位序号（如 20260815-001），新建订单时自动生成。</p>
-<div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>订单编号</th><th>客户名称</th><th>联系方式</th><th>项目分类</th>
-            <th>订单状态</th><th class="num">订单金额</th><th>付款状态</th><th>操作</th>
-          </tr>
-        </thead>
-        <tbody id="business-body"></tbody>
-      </table>
-    </div>
+      <div class="filter-row">
+        <input id="f-search" placeholder="🔍 搜索：客户 / 订单号 / 产品 / 分类" oninput="renderBusiness()">
+        <select id="f-status-filter" onchange="renderBusiness()">
+          <option value="">全部状态</option>
+          <option>待确认</option><option>打印中</option><option>已完成</option>
+          <option>已交付</option><option>已取消</option>
+        </select>
+        <select id="f-pay-filter" onchange="renderBusiness()">
+          <option value="">全部付款</option>
+          <option>未付</option><option>定金</option><option>全款</option>
+        </select>
+      </div>
+      <div class="tbl-wrap" id="business-tbl">
+        <table>
+          <thead>
+            <tr>
+              <th>订单编号</th><th>客户名称</th><th>联系方式</th><th>项目分类</th>
+              <th>订单状态</th><th class="num">订单金额</th><th>付款状态</th><th>交付日期</th><th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="business-body"></tbody>
+        </table>
+      </div>
+      <div class="order-cards" id="business-cards"></div>
     </div>
   </section>
 
@@ -354,18 +391,18 @@
     </div>
     <div class="card">
       <h2>订单成本明细</h2>
-<div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>订单编号</th><th class="num">订单金额</th><th class="num">材料成本</th>
-            <th class="num">人工成本</th><th class="num">水电成本</th><th class="num">设备损耗</th>
-            <th class="num">毛利</th><th class="num">净利</th><th>操作</th>
-          </tr>
-        </thead>
-        <tbody id="profit-body"></tbody>
-      </table>
-    </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>订单编号</th><th class="num">订单金额</th><th class="num">材料成本</th>
+              <th class="num">人工成本</th><th class="num">水电成本</th><th class="num">设备损耗</th>
+              <th class="num">毛利</th><th class="num">净利</th><th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="profit-body"></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -378,17 +415,17 @@
     </div>
     <div class="card">
       <h2>分类明细</h2>
-<div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>项目分类</th><th class="num">订单数</th><th class="num">总收入</th>
-            <th class="num">总毛利</th><th class="num">总净利</th><th>收入占比</th>
-          </tr>
-        </thead>
-        <tbody id="summary-body"></tbody>
-      </table>
-    </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>项目分类</th><th class="num">订单数</th><th class="num">总收入</th>
+              <th class="num">总毛利</th><th class="num">总净利</th><th>收入占比</th>
+            </tr>
+          </thead>
+          <tbody id="summary-body"></tbody>
+        </table>
+      </div>
       <div style="margin-top:14px" id="summary-bars"></div>
     </div>
   </section>
@@ -398,7 +435,7 @@
     <div class="grid-2">
       <div class="card">
         <h2>耗材库存</h2>
-<div class="tbl-wrap">
+        <div class="tbl-wrap">
           <table>
             <thead>
               <tr><th>耗材名称</th><th>单位</th><th class="num">数量</th><th class="num">预警线</th><th>状态</th><th>操作</th></tr>
@@ -406,7 +443,7 @@
             <tbody id="consumables-body"></tbody>
           </table>
         </div>
-        <div class="inline-add" id="consumable-add">
+        <div class="inline-add">
           <input id="c-name" placeholder="耗材名称" style="flex:1;min-width:120px">
           <input id="c-unit" placeholder="单位" style="width:70px">
           <input id="c-qty" type="number" min="0" step="0.1" placeholder="数量" style="width:80px">
@@ -416,7 +453,7 @@
       </div>
       <div class="card">
         <h2>订单库存 <span class="tag">成品/在制</span></h2>
-<div class="tbl-wrap">
+        <div class="tbl-wrap">
           <table>
             <thead>
               <tr><th>订单编号</th><th>产品</th><th class="num">数量</th><th>状态</th><th>操作</th></tr>
@@ -424,7 +461,7 @@
             <tbody id="orderstock-body"></tbody>
           </table>
         </div>
-        <div class="inline-add" id="orderstock-add">
+        <div class="inline-add">
           <input id="os-order" placeholder="订单编号" style="width:130px">
           <input id="os-product" placeholder="产品" style="flex:1;min-width:100px">
           <input id="os-qty" type="number" min="1" value="1" style="width:70px">
@@ -437,7 +474,39 @@
     </div>
   </section>
 
-  <footer>v1.1 · 数据保存在浏览器本地 · 用「导出/导入」在不同设备间同步数据</footer>
+  <!-- 5. 设备管理 -->
+  <section class="panel" id="panel-equipment">
+    <div class="card">
+      <h2>设备管理 <span class="tag">打印机台账</span></h2>
+      <p class="hint">记录每台打印机的状态、当前任务与累计工作量。状态可直接在表格中切换。</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>设备名称</th><th>型号/类型</th><th>状态</th><th>当前任务</th>
+              <th class="num">累计打印次数</th><th class="num">累计时长(小时)</th><th>备注</th><th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="printers-body"></tbody>
+        </table>
+      </div>
+      <div class="inline-add">
+        <input id="p-name" placeholder="设备名称" style="flex:1;min-width:110px">
+        <input id="p-model" placeholder="型号/类型" style="width:130px">
+        <select id="p-status">
+          <option>空闲</option><option>打印中</option><option>故障</option><option>维护中</option>
+        </select>
+        <input id="p-task" placeholder="当前任务" style="flex:1;min-width:100px">
+        <input id="p-prints" type="number" min="0" placeholder="次数" style="width:70px">
+        <input id="p-hours" type="number" min="0" step="0.1" placeholder="时长h" style="width:70px">
+        <input id="p-note" placeholder="备注" style="width:90px">
+        <button class="btn primary" id="p-save-btn" onclick="savePrinter()">添加</button>
+        <button class="btn" id="p-cancel-btn" style="display:none" onclick="cancelEditPrinter()">取消</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>v2.0 · 数据保存在浏览器本地 · 用「导出/导入」在不同设备间同步数据</footer>
 </div>
 
 <!-- ================= 订单弹窗 ================= -->
@@ -447,7 +516,7 @@
     <div class="form-grid">
       <div class="field full">
         <label>订单编号</label>
-        <input id="f-id" readonly style="background:#f5f6f8">
+        <input id="f-id" readonly>
       </div>
       <div class="field">
         <label>客户名称 *</label>
@@ -480,6 +549,10 @@
         </select>
       </div>
       <div class="field">
+        <label>交付日期（可选）</label>
+        <input id="f-due" type="date">
+      </div>
+      <div class="field">
         <label>订单金额（元）*</label>
         <input id="f-amount" type="number" min="0" step="0.01" placeholder="0.00">
       </div>
@@ -510,17 +583,26 @@
 <script>
 "use strict";
 /* ============ 数据层 ============ */
-const LS_KEY = "dsh3d_studio_v1";
+const LS_KEY = "dsh3d_studio_v2";
+const LEGACY_KEY = "dsh3d_studio_v1";
+const THEME_KEY = "dsh3d_theme";
 let state = load();
+
+function addDays(n) {
+  const d = new Date();
+  d.setDate(d.getDate() + n);
+  const p = x => String(x).padStart(2, "0");
+  return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+}
 
 function seed() {
   return {
     orders: [
-      { id:"20260810-001", customer:"李雷",   contact:"138****8001", category:"手办模型", product:"赛博机甲摆件", status:"打印中", payment:"定金", amount:359, material:80,  labor:50,  utility:8,  dep:15 },
-      { id:"20260811-001", customer:"韩梅梅", contact:"139****9002", category:"机械零件", product:"齿轮组 x3",    status:"已完成", payment:"全款", amount:240, material:60,  labor:40,  utility:5,  dep:10 },
-      { id:"20260812-001", customer:"王小明", contact:"137****7003", category:"教学教具", product:"地形模型",     status:"待确认", payment:"未付", amount:520, material:130, labor:80,  utility:10, dep:20 },
-      { id:"20260813-001", customer:"赵六",   contact:"136****6004", category:"定制礼品", product:"水晶内雕灯座", status:"已交付", payment:"全款", amount:680, material:150, labor:100, utility:12, dep:25 },
-      { id:"20260814-001", customer:"孙七",   contact:"135****5005", category:"手办模型", product:"Q版头像",     status:"已取消", payment:"定金", amount:199, material:40,  labor:30,  utility:4,  dep:8  }
+      { id:"20260810-001", customer:"李雷",   contact:"138****8001", category:"手办模型", product:"赛博机甲摆件", status:"打印中", payment:"定金", amount:359, material:80,  labor:50,  utility:8,  dep:15, dueDate:addDays(-1) },
+      { id:"20260811-001", customer:"韩梅梅", contact:"139****9002", category:"机械零件", product:"齿轮组 x3",    status:"已完成", payment:"全款", amount:240, material:60,  labor:40,  utility:5,  dep:10, dueDate:addDays(2) },
+      { id:"20260812-001", customer:"王小明", contact:"137****7003", category:"教学教具", product:"地形模型",     status:"待确认", payment:"未付", amount:520, material:130, labor:80,  utility:10, dep:20, dueDate:addDays(0) },
+      { id:"20260813-001", customer:"赵六",   contact:"136****6004", category:"定制礼品", product:"水晶内雕灯座", status:"已交付", payment:"全款", amount:680, material:150, labor:100, utility:12, dep:25, dueDate:"" },
+      { id:"20260814-001", customer:"孙七",   contact:"135****5005", category:"手办模型", product:"Q版头像",     status:"已取消", payment:"定金", amount:199, material:40,  labor:30,  utility:4,  dep:8,  dueDate:"" }
     ],
     consumables: [
       { name:"PLA耗材 1.75mm 黑", unit:"kg",  qty:4.5, warn:2 },
@@ -535,18 +617,54 @@ function seed() {
       { order:"20260813-001", product:"水晶内雕灯座", qty:1, status:"待发货" },
       { order:"20260810-001", product:"赛博机甲摆件", qty:1, status:"生产中" }
     ],
+    printers: [
+      { name:"Ender-3 V2",        model:"FDM 桌面级", status:"空闲",  task:"",                 prints:128, hours:312.5, note:"主力 PLA 机" },
+      { name:"拓竹 X1 Carbon",    model:"FDM 高速",   status:"打印中", task:"20260813-001 水晶灯座", prints:86,  hours:201,   note:"PETG/ABS" },
+      { name:"Anycubic Photon M3", model:"光固化",    status:"故障",  task:"",                 prints:64,  hours:150.2, note:"树脂机，待换屏" }
+    ],
     fixedCosts: { rent:2000, labor:5000, utility:800, internet:200, software:150 }
   };
+}
+
+// 规范化旧数据（兼容 v1：补默认字段、补打印机数组、补交付日期）
+function normalizeState(s) {
+  s = s || {};
+  s.orders = Array.isArray(s.orders) ? s.orders.map(o => Object.assign({ dueDate:"" }, o)) : [];
+  s.consumables = Array.isArray(s.consumables) ? s.consumables : [];
+  s.orderStock = Array.isArray(s.orderStock) ? s.orderStock : [];
+  s.printers = Array.isArray(s.printers) ? s.printers : [];
+  const fc = (s.fixedCosts && typeof s.fixedCosts === "object") ? s.fixedCosts : {};
+  s.fixedCosts = {
+    rent: Number(fc.rent) || 0, labor: Number(fc.labor) || 0,
+    utility: Number(fc.utility) || 0, internet: Number(fc.internet) || 0,
+    software: Number(fc.software) || 0
+  };
+  return s;
 }
 
 function load() {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) return normalizeState(JSON.parse(raw));
   } catch (e) { /* 忽略损坏数据 */ }
+  try {
+    const legacy = localStorage.getItem(LEGACY_KEY);
+    if (legacy) return normalizeState(JSON.parse(legacy)); // 迁移旧版数据
+  } catch (e) { /* 忽略 */ }
   return seed();
 }
 function save() { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+/* ============ 主题 ============ */
+function applyTheme(t) {
+  document.body.dataset.theme = t;
+  document.getElementById("theme-btn").textContent = t === "dark" ? "☀️ 亮色" : "🌙 深色";
+}
+function toggleTheme() {
+  const t = document.body.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(t);
+  localStorage.setItem(THEME_KEY, t);
+}
 
 /* ============ 工具函数 ============ */
 function esc(s) {
@@ -562,14 +680,31 @@ function round2(n) { return Math.round((Number(n) || 0) * 100) / 100; }
 function activeOrders() { return state.orders.filter(o => o.status !== "已取消"); }
 
 function statusBadge(s) {
-  const map = {
-    "待确认":"muted", "打印中":"info", "已完成":"warn", "已交付":"ok", "已取消":"danger"
-  };
+  const map = { "待确认":"muted", "打印中":"info", "已完成":"warn", "已交付":"ok", "已取消":"danger" };
   return '<span class="badge ' + (map[s] || "muted") + '">' + esc(s) + "</span>";
 }
 function paymentBadge(p) {
   const map = { "未付":"danger", "定金":"warn", "全款":"ok" };
   return '<span class="badge ' + (map[p] || "muted") + '">' + esc(p) + "</span>";
+}
+function printerBadge(s) {
+  const map = { "空闲":"ok", "打印中":"info", "故障":"danger", "维护中":"warn" };
+  return '<span class="badge ' + (map[s] || "muted") + '">' + esc(s) + "</span>";
+}
+
+// 交付日期状态：返回 {text, cls, days} 或 null（无日期/已交付/已取消）
+function dueInfo(o) {
+  if (!o.dueDate || o.status === "已交付" || o.status === "已取消") return null;
+  const today = new Date(todayStr() + "T00:00:00");
+  const due = new Date(o.dueDate + "T00:00:00");
+  const days = Math.round((due - today) / 86400000);
+  if (days < 0) return { text: "已逾期 " + (-days) + " 天", cls: "danger", days: days };
+  if (days === 0) return { text: "今天交付", cls: "warn", days: 0 };
+  if (days === 1) return { text: "明天交付", cls: "info", days: 1 };
+  return { text: days + " 天后交付", cls: "muted", days: days };
+}
+function dueBadge(d) {
+  return d ? '<span class="badge ' + d.cls + '">' + d.text + "</span>" : "";
 }
 
 function genOrderId(orders, date) {
@@ -589,18 +724,22 @@ function todayStr() {
 function renderAll() {
   renderSideStats();
   renderChips();
+  renderDashboard();
   renderBusiness();
   renderProfit();
   renderSummary();
   renderInventory();
+  renderPrinters();
 }
 
 function renderSideStats() {
   const list = activeOrders();
   const income = list.reduce((s, o) => s + Number(o.amount || 0), 0);
   const net = list.reduce((s, o) => s + netOf(o), 0);
+  const due = list.filter(o => { const d = dueInfo(o); return d && d.days <= 1; }).length;
   document.getElementById("side-stats").innerHTML =
     '<div class="row"><span>进行中订单</span><b>' + list.filter(o => o.status === "打印中").length + " 单</b></div>" +
+    '<div class="row"><span>待交付</span><b>' + due + " 单</b></div>" +
     '<div class="row"><span>本月收入</span><b>' + money(income) + "</b></div>" +
     '<div class="row"><span>本月净利</span><b>' + money(net) + "</b></div>";
 }
@@ -611,33 +750,127 @@ function renderChips() {
   const gross = list.reduce((s, o) => s + grossOf(o), 0);
   const net = list.reduce((s, o) => s + netOf(o), 0);
   const low = state.consumables.filter(c => c.qty <= c.warn).length;
+  const idleP = state.printers.filter(p => p.status === "空闲").length;
   document.getElementById("quick-chips").innerHTML =
     '<div class="chip"><div class="label">订单总数</div><div class="value">' + list.length + " 单</div></div>" +
     '<div class="chip"><div class="label">总收入</div><div class="value">' + money(income) + "</div></div>" +
     '<div class="chip"><div class="label">总毛利</div><div class="value up">' + money(gross) + "</div></div>" +
     '<div class="chip"><div class="label">总净利</div><div class="value up">' + money(net) + "</div></div>" +
-    '<div class="chip"><div class="label">库存预警</div><div class="value ' + (low ? "down" : "up") + '">' + low + " 项</div></div>";
+    '<div class="chip"><div class="label">库存预警</div><div class="value ' + (low ? "down" : "up") + '">' + low + " 项</div></div>" +
+    '<div class="chip"><div class="label">空闲设备</div><div class="value ' + (idleP ? "up" : "down") + '">' + idleP + " 台</div></div>";
 }
 
 function grossOf(o) { return round2(Number(o.amount || 0) - Number(o.material || 0) - Number(o.labor || 0)); }
 function netOf(o) { return round2(grossOf(o) - Number(o.utility || 0) - Number(o.dep || 0)); }
 
+/* ---------- 仪表盘 ---------- */
+function renderDashboard() {
+  const list = activeOrders();
+  // 交付提醒：3 天内到期或已逾期，按剩余天数排序
+  const dues = list
+    .map(o => ({ o: o, d: dueInfo(o) }))
+    .filter(x => x.d && x.d.days <= 3)
+    .sort((a, b) => a.d.days - b.d.days);
+  document.getElementById("dash-due").innerHTML = dues.length
+    ? dues.map(x =>
+        '<div class="remind-item"><div class="ri-left">' +
+          "<b>" + esc(x.o.id) + "</b>" + esc(x.o.customer) +
+          '<span class="badge ' + x.d.cls + '">' + x.d.text + "</span></div>" +
+          '<button class="btn sm" onclick="openOrderModal(\'' + esc(x.o.id) + '\')">处理</button></div>'
+      ).join("")
+    : '<div class="empty" style="padding:12px 0">🎉 3 天内没有待交付订单</div>';
+
+  // 库存预警
+  const lows = state.consumables.filter(c => c.qty <= c.warn);
+  document.getElementById("dash-stock").innerHTML = lows.length
+    ? lows.map(c =>
+        '<div class="remind-item"><div class="ri-left">' + esc(c.name) +
+        '<span class="badge ' + (c.qty <= 0 ? "danger" : "warn") + '">剩 ' + c.qty + " " + esc(c.unit) + "</span></div>" +
+        '<button class="btn sm" onclick="switchPanel(\'inventory\')">去补货</button></div>'
+      ).join("")
+    : '<div class="empty" style="padding:12px 0">✅ 库存充足</div>';
+
+  // 设备状态
+  const st = { "空闲":0, "打印中":0, "故障":0, "维护中":0 };
+  state.printers.forEach(p => { if (st[p.status] != null) st[p.status]++; });
+  document.getElementById("dash-printers").innerHTML =
+    '<div class="chip"><div class="label">空闲</div><div class="value up">' + st["空闲"] + " 台</div></div>" +
+    '<div class="chip"><div class="label">打印中</div><div class="value">' + st["打印中"] + " 台</div></div>" +
+    '<div class="chip"><div class="label">故障</div><div class="value ' + (st["故障"] ? "down" : "up") + '">' + st["故障"] + " 台</div></div>" +
+    '<div class="chip"><div class="label">维护中</div><div class="value">' + st["维护中"] + " 台</div></div>";
+
+  // 本月收支
+  const income = list.reduce((s, o) => s + Number(o.amount || 0), 0);
+  const gross = list.reduce((s, o) => s + grossOf(o), 0);
+  const net = list.reduce((s, o) => s + netOf(o), 0);
+  const fix = fixedTotal();
+  document.getElementById("dash-money").innerHTML =
+    '<div class="mc"><div class="l">收入</div><div class="v">' + money(income) + "</div></div>" +
+    '<div class="mc"><div class="l">毛利</div><div class="v">' + money(gross) + "</div></div>" +
+    '<div class="mc"><div class="l">净利</div><div class="v">' + money(net) + "</div></div>" +
+    '<div class="mc"><div class="l">固定成本</div><div class="v">' + money(fix) + "</div></div>" +
+    '<div class="mc hl"><div class="l">结余</div><div class="v">' + money(round2(net - fix)) + "</div></div>";
+}
+
+/* ---------- 经营分析（含搜索/筛选 + 手机卡片） ---------- */
+function filteredOrders() {
+  const q = (document.getElementById("f-search").value || "").trim().toLowerCase();
+  const st = document.getElementById("f-status-filter").value;
+  const pay = document.getElementById("f-pay-filter").value;
+  return state.orders.filter(o => {
+    if (st && o.status !== st) return false;
+    if (pay && o.payment !== pay) return false;
+    if (q) {
+      const hay = (o.id + " " + o.customer + " " + (o.contact || "") + " " +
+                   (o.product || "") + " " + (o.category || "")).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
 function renderBusiness() {
+  const list = filteredOrders();
   const tb = document.getElementById("business-body");
-  if (!state.orders.length) { tb.innerHTML = '<tr><td colspan="8" class="empty">暂无订单，点击右上角「新建订单」开始</td></tr>'; return; }
-  tb.innerHTML = state.orders.map(o =>
-    "<tr>" +
-      "<td>" + esc(o.id) + "</td>" +
-      "<td>" + esc(o.customer) + "</td>" +
-      "<td>" + esc(o.contact) + "</td>" +
-      "<td>" + esc(o.category) + "</td>" +
-      "<td>" + statusBadge(o.status) + "</td>" +
-      '<td class="num">' + money(o.amount) + "</td>" +
-      "<td>" + paymentBadge(o.payment) + "</td>" +
-      '<td><button class="btn sm" onclick="openOrderModal(\'' + esc(o.id) + '\')">编辑</button> ' +
-      '<button class="btn sm danger" onclick="delOrder(\'' + esc(o.id) + '\')">删除</button></td>' +
-    "</tr>"
-  ).join("");
+  if (!list.length) {
+    tb.innerHTML = '<tr><td colspan="9" class="empty">没有符合条件的订单，点击右上角「新建订单」开始</td></tr>';
+  } else {
+    tb.innerHTML = list.map(o => {
+      const d = dueInfo(o);
+      return "<tr>" +
+        "<td>" + esc(o.id) + "</td>" +
+        "<td>" + esc(o.customer) + "</td>" +
+        "<td>" + esc(o.contact) + "</td>" +
+        "<td>" + esc(o.category) + "</td>" +
+        "<td>" + statusBadge(o.status) + "</td>" +
+        '<td class="num">' + money(o.amount) + "</td>" +
+        "<td>" + paymentBadge(o.payment) + "</td>" +
+        "<td>" + (d ? dueBadge(d) : '<span class="badge muted">—</span>') + "</td>" +
+        '<td><button class="btn sm" onclick="openOrderModal(\'' + esc(o.id) + '\')">编辑</button> ' +
+        '<button class="btn sm danger" onclick="delOrder(\'' + esc(o.id) + '\')">删除</button></td>' +
+      "</tr>";
+    }).join("");
+  }
+
+  // 手机端卡片
+  const cards = document.getElementById("business-cards");
+  if (!list.length) {
+    cards.innerHTML = '<div class="oc"><div class="empty" style="padding:16px 0">没有符合条件的订单</div></div>';
+  } else {
+    cards.innerHTML = list.map(o => {
+      const d = dueInfo(o);
+      return '<div class="oc">' +
+        '<div class="oc-top"><b>' + esc(o.id) + "</b>" + statusBadge(o.status) + "</div>" +
+        '<div class="oc-line">客户：' + esc(o.customer) + "　" + esc(o.contact) + "</div>" +
+        '<div class="oc-line">分类：' + esc(o.category) + " · " + esc(o.product) + "</div>" +
+        '<div class="oc-line">金额：<b>' + money(o.amount) + "</b> " + paymentBadge(o.payment) + "</div>" +
+        '<div class="oc-line">交付：' + (d ? dueBadge(d) : '<span class="badge muted">未设置</span>') + "</div>" +
+        '<div class="oc-actions">' +
+          '<button class="btn sm" onclick="openOrderModal(\'' + esc(o.id) + '\')">编辑</button> ' +
+          '<button class="btn sm danger" onclick="delOrder(\'' + esc(o.id) + '\')">删除</button>' +
+        "</div></div>";
+    }).join("");
+  }
 }
 
 function renderProfit() {
@@ -654,11 +887,9 @@ function renderProfit() {
     '<div class="mc hl"><div class="l">本月结余（净利 − 固定成本）</div><div class="v">' + money(round2(net - fix)) + "</div></div>";
 
   const fc = state.fixedCosts;
-  const fdef = [
-    ["rent","房租"], ["labor","人工（月薪）"], ["utility","水电"], ["internet","网络"], ["software","软件订阅"]
-  ];
+  const fdef = [ ["rent","房租"], ["labor","人工（月薪）"], ["utility","水电"], ["internet","网络"], ["software","软件订阅"] ];
   document.getElementById("fixed-costs").innerHTML = fdef.map(([k, label]) =>
-    '<label style="font-size:12px;color:#6b7280">' + label +
+    "<label>" + label +
     '<input type="number" min="0" step="1" value="' + (fc[k] || 0) + '" onchange="setFixed(\'' + k + '\',this.value)">' +
     " 元</label>"
   ).join("") +
@@ -687,7 +918,7 @@ function fixedTotal() {
 }
 function setFixed(k, v) {
   state.fixedCosts[k] = Number(v) || 0;
-  save(); renderProfit();
+  save(); renderProfit(); renderDashboard();
 }
 
 function renderSummary() {
@@ -723,7 +954,7 @@ function renderSummary() {
       '<td class="num">' + money(g.income) + "</td>" +
       '<td class="num">' + money(g.gross) + "</td>" +
       '<td class="num">' + money(g.net) + "</td>" +
-      '<td class="num" style="color:#6b7280">' + (total.income ? (g.income / total.income * 100).toFixed(1) : 0) + "%</td>" +
+      '<td class="num" style="color:var(--text-2)">' + (total.income ? (g.income / total.income * 100).toFixed(1) : 0) + "%</td>" +
     "</tr>";
   }).join("");
 
@@ -781,10 +1012,84 @@ function statusBadge2(s) {
   return '<span class="badge ' + (map[s] || "muted") + '">' + esc(s) + "</span>";
 }
 
+/* ---------- 设备管理 ---------- */
+function renderPrinters() {
+  const tb = document.getElementById("printers-body");
+  if (!state.printers.length) { tb.innerHTML = '<tr><td colspan="8" class="empty">暂无设备，用下方表单添加</td></tr>'; return; }
+  tb.innerHTML = state.printers.map((p, i) =>
+    "<tr>" +
+      "<td>" + esc(p.name) + "</td>" +
+      "<td>" + esc(p.model) + "</td>" +
+      '<td><select class="btn sm" style="font-family:inherit" onchange="setPrinterStatus(' + i + ',this.value)">' +
+        ["空闲","打印中","故障","维护中"].map(opt => '<option' + (opt === p.status ? " selected" : "") + ">" + opt + "</option>").join("") +
+      "</select></td>" +
+      "<td>" + esc(p.task || "—") + "</td>" +
+      '<td class="num">' + (p.prints || 0) + "</td>" +
+      '<td class="num">' + (p.hours || 0) + "</td>" +
+      "<td>" + esc(p.note || "—") + "</td>" +
+      '<td><button class="btn sm" onclick="editPrinter(' + i + ')">编辑</button> ' +
+      '<button class="btn sm danger" onclick="delPrinter(' + i + ')">删除</button></td>' +
+    "</tr>"
+  ).join("");
+}
+
+let printerEditId = null;
+function savePrinter() {
+  const name = document.getElementById("p-name").value.trim();
+  if (!name) { alert("请填写设备名称"); return; }
+  const data = {
+    name: name,
+    model: document.getElementById("p-model").value.trim(),
+    status: document.getElementById("p-status").value,
+    task: document.getElementById("p-task").value.trim(),
+    prints: Math.max(0, Number(document.getElementById("p-prints").value) || 0),
+    hours: Math.max(0, Number(document.getElementById("p-hours").value) || 0),
+    note: document.getElementById("p-note").value.trim()
+  };
+  if (printerEditId != null && state.printers[printerEditId]) {
+    state.printers[printerEditId] = data;
+  } else {
+    state.printers.push(data);
+  }
+  cancelEditPrinter();
+  save(); renderAll();
+}
+function editPrinter(i) {
+  const p = state.printers[i];
+  if (!p) return;
+  printerEditId = i;
+  document.getElementById("p-name").value = p.name;
+  document.getElementById("p-model").value = p.model || "";
+  document.getElementById("p-status").value = p.status;
+  document.getElementById("p-task").value = p.task || "";
+  document.getElementById("p-prints").value = p.prints || 0;
+  document.getElementById("p-hours").value = p.hours || 0;
+  document.getElementById("p-note").value = p.note || "";
+  document.getElementById("p-save-btn").textContent = "保存修改";
+  document.getElementById("p-cancel-btn").style.display = "";
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
+function cancelEditPrinter() {
+  printerEditId = null;
+  ["p-name","p-model","p-task","p-prints","p-hours","p-note"].forEach(id => document.getElementById(id).value = "");
+  document.getElementById("p-status").value = "空闲";
+  document.getElementById("p-save-btn").textContent = "添加";
+  document.getElementById("p-cancel-btn").style.display = "none";
+}
+function setPrinterStatus(i, v) {
+  if (state.printers[i]) { state.printers[i].status = v; save(); renderAll(); }
+}
+function delPrinter(i) {
+  if (!confirm("删除设备 " + state.printers[i].name + " ？")) return;
+  state.printers.splice(i, 1);
+  save(); renderAll();
+}
+
 /* ============ 操作 ============ */
 function switchPanel(name) {
   document.querySelectorAll(".nav-item").forEach(b => b.classList.toggle("active", b.dataset.panel === name));
   document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === "panel-" + name));
+  window.scrollTo({ top: 0 });
 }
 document.querySelectorAll(".nav-item").forEach(b => b.addEventListener("click", () => switchPanel(b.dataset.panel)));
 
@@ -800,12 +1105,12 @@ function openOrderModal(id) {
   document.getElementById("f-product").value = o ? (o.product || "") : "";
   document.getElementById("f-status").value = o ? o.status : "待确认";
   document.getElementById("f-payment").value = o ? o.payment : "定金";
+  document.getElementById("f-due").value = o ? (o.dueDate || "") : "";
   document.getElementById("f-amount").value = o ? o.amount : "";
   document.getElementById("f-material").value = o ? o.material : "";
   document.getElementById("f-labor").value = o ? o.labor : "";
   document.getElementById("f-utility").value = o ? o.utility : "";
   document.getElementById("f-dep").value = o ? o.dep : "";
-  // 分类下拉建议
   const cats = [...new Set(state.orders.map(x => x.category).filter(Boolean))];
   document.getElementById("cat-list").innerHTML = cats.map(c => "<option value='" + esc(c) + "'>").join("");
   document.getElementById("modal-mask").classList.add("show");
@@ -825,6 +1130,7 @@ function saveOrder() {
     product: document.getElementById("f-product").value.trim(),
     status: document.getElementById("f-status").value,
     payment: document.getElementById("f-payment").value,
+    dueDate: document.getElementById("f-due").value,
     amount: round2(amount),
     material: round2(Number(document.getElementById("f-material").value) || 0),
     labor: round2(Number(document.getElementById("f-labor").value) || 0),
@@ -920,17 +1226,7 @@ function exportData() {
 // 校验并应用导入的数据；成功返回 true
 function applyImported(obj) {
   if (!obj || typeof obj !== "object" || !Array.isArray(obj.orders)) return false;
-  const fc = (obj.fixedCosts && typeof obj.fixedCosts === "object") ? obj.fixedCosts : {};
-  state = {
-    orders: obj.orders,
-    consumables: Array.isArray(obj.consumables) ? obj.consumables : [],
-    orderStock: Array.isArray(obj.orderStock) ? obj.orderStock : [],
-    fixedCosts: {
-      rent: Number(fc.rent) || 0, labor: Number(fc.labor) || 0,
-      utility: Number(fc.utility) || 0, internet: Number(fc.internet) || 0,
-      software: Number(fc.software) || 0
-    }
-  };
+  state = normalizeState(obj);
   return true;
 }
 
@@ -960,6 +1256,7 @@ function doImport(input) {
 /* ============ 启动 ============ */
 document.getElementById("today").textContent =
   "今天是 " + todayStr() + " · 数据自动保存在本地浏览器";
+applyTheme(localStorage.getItem(THEME_KEY) === "dark" ? "dark" : "light");
 renderAll();
 </script>
 </body>
